@@ -1,6 +1,6 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = (env, argv) => {
@@ -40,6 +40,7 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+      new webpack.ProgressPlugin(),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: './src/index.html',
@@ -48,7 +49,7 @@ module.exports = (env, argv) => {
   };
 
   if (isProduction) {
-    config.plugins(
+    config.plugins.push(
       new MiniCssExtractPlugin({
         filename: '[name].css',
       })
